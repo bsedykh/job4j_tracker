@@ -12,9 +12,8 @@ public class Battery {
     }
 
     public void exchange(Battery another) {
-        int charge = Math.min(load, 100 - another.load);
-        this.load -= charge;
-        another.load += charge;
+        another.load += this.load;
+        this.load = 0;
     }
 
     public static void main(String[] args) {
