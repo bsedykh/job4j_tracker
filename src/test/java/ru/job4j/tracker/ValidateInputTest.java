@@ -44,9 +44,8 @@ public class ValidateInputTest {
                 new String[] {"-50", "200", "3"}
         );
         ValidateInput input = new ValidateInput(out, in);
-        int[] expected = {-50, 200, 3};
-        for (int number : expected) {
-            assertThat(input.askInt("Enter menu:")).isEqualTo(number);
-        }
+        assertThat(input.askInt("Enter menu:")).isEqualTo(-50);
+        assertThat(input.askInt("Enter menu:")).isEqualTo(200);
+        assertThat(input.askInt("Enter menu:")).isEqualTo(3);
     }
 }
