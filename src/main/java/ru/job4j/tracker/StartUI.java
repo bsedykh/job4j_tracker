@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 public class StartUI {
     private final Output out;
 
@@ -7,23 +9,23 @@ public class StartUI {
         this.out = out;
     }
 
-    public void init(Input input, Tracker tracker, UserAction[] actions) {
+    public void init(Input input, Tracker tracker, List<UserAction> actions) {
         boolean run = true;
         while (run) {
             showMenu(actions);
             int select = input.askInt("Выбрать: ");
-            if (select < 0 || select >= actions.length) {
-                out.println("Неверный ввод, вы можете выбрать: 0 .. " + (actions.length - 1));
+            if (select < 0 || select >= actions.size()) {
+                out.println("Неверный ввод, вы можете выбрать: 0 .. " + (actions.size() - 1));
                 continue;
             }
-            run = actions[select].execute(input, tracker);
+            run = actions.get(select).execute(input, tracker);
         }
     }
 
-    private void showMenu(UserAction[] actions) {
+    private void showMenu(List<UserAction> actions) {
         out.println("Меню:");
-        for (int i = 0; i < actions.length; i++) {
-            out.println(i + ". " + actions[i].name());
+        for (int i = 0; i < actions.size(); i++) {
+            out.println(i + ". " + actions.get(i).name());
         }
     }
 
@@ -31,7 +33,7 @@ public class StartUI {
         Output output = new ConsoleOutput();
         Input input = new ValidateInput(output, new ConsoleInput());
         Tracker tracker = new Tracker();
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new CreateAction(output),
                 new FindAllAction(output),
                 new ReplaceAction(output),
@@ -39,7 +41,7 @@ public class StartUI {
                 new FindByIdAction(output),
                 new FindByNameAction(output),
                 new ExitAction(output)
-        };
+        );
         new StartUI(output).init(input, tracker, actions);
     }
 }
