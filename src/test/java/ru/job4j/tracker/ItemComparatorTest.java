@@ -11,37 +11,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ItemComparatorTest {
     @Test
     void whenAscByName() {
-        List<Item> items = Arrays.asList(
-                new Item("ccc"),
-                new Item("aaa"),
-                new Item("bbb")
-        );
-        List<Item> expected = Arrays.asList(
-                new Item("aaa"),
-                new Item("bbb"),
-                new Item("ccc")
-        );
+        Item item1 = new Item("aaa");
+        Item item2 = new Item("bbb");
+        Item item3 = new Item("ccc");
+        List<Item> items = Arrays.asList(item3, item1, item2);
+        List<Item> expected = Arrays.asList(item1, item2, item3);
         Collections.sort(items, new ItemAscByName());
-        assertThat(items.get(0).getName()).isEqualTo(expected.get(0).getName());
-        assertThat(items.get(1).getName()).isEqualTo(expected.get(1).getName());
-        assertThat(items.get(2).getName()).isEqualTo(expected.get(2).getName());
+        assertThat(items).isEqualTo(expected);
     }
 
     @Test
     void whenDescByName() {
-        List<Item> items = Arrays.asList(
-                new Item("ccc"),
-                new Item("aaa"),
-                new Item("bbb")
-        );
-        List<Item> expected = Arrays.asList(
-                new Item("ccc"),
-                new Item("bbb"),
-                new Item("aaa")
-        );
+        Item item1 = new Item("aaa");
+        Item item2 = new Item("bbb");
+        Item item3 = new Item("ccc");
+        List<Item> items = Arrays.asList(item3, item1, item2);
+        List<Item> expected = Arrays.asList(item3, item2, item1);
         Collections.sort(items, new ItemDescByName());
-        assertThat(items.get(0).getName()).isEqualTo(expected.get(0).getName());
-        assertThat(items.get(1).getName()).isEqualTo(expected.get(1).getName());
-        assertThat(items.get(2).getName()).isEqualTo(expected.get(2).getName());
+        assertThat(items).isEqualTo(expected);
     }
 }
