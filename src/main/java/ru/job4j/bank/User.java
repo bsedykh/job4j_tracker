@@ -2,6 +2,12 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Data model of a bank user.
+ *
+ * @author Boris Sedykh
+ * @version 1.0
+ */
 public class User {
     private String passport;
     private String username;
