@@ -99,7 +99,7 @@ public class SqlTracker implements Store {
     public List<Item> findAll() {
         List<Item> result = new ArrayList<>();
         try (PreparedStatement statement = cn.prepareStatement(
-                "SELECT i.id, i.name, i.created FROM items i");
+                "SELECT i.id, i.name, i.created FROM items i ORDER BY i.id");
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 result.add(itemFromQueryResult(resultSet));
@@ -114,7 +114,7 @@ public class SqlTracker implements Store {
     public List<Item> findByName(String key) {
         List<Item> result = new ArrayList<>();
         try (PreparedStatement statement = cn.prepareStatement(
-                "SELECT i.id, i.name, i.created FROM items i WHERE i.name = ?")) {
+                "SELECT i.id, i.name, i.created FROM items i WHERE i.name = ? ORDER BY i.id")) {
             statement.setString(1, key);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
