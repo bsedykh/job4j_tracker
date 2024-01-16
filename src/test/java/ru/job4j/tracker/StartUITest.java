@@ -1,6 +1,13 @@
 package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
+import ru.job4j.tracker.action.*;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.input.StubInput;
+import ru.job4j.tracker.output.ConsoleOutput;
+import ru.job4j.tracker.output.Output;
+import ru.job4j.tracker.output.StubOutput;
+import ru.job4j.tracker.store.MemTracker;
 
 import java.util.List;
 
@@ -15,8 +22,8 @@ class StartUITest {
         );
         MemTracker tracker = new MemTracker();
         List<UserAction> actions = List.of(
-                new CreateAction(out),
-                new ExitAction(out)
+                new Create(out),
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
@@ -32,8 +39,8 @@ class StartUITest {
                 new String[] {"0", String.valueOf(item.getId()), replacedName, "1"}
         );
         List<UserAction> actions = List.of(
-                new ReplaceAction(out),
-                new ExitAction(out)
+                new Replace(out),
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replacedName);
@@ -48,8 +55,8 @@ class StartUITest {
                 new String[] {"0", String.valueOf(item.getId()), "1"}
         );
         List<UserAction> actions = List.of(
-                new DeleteAction(out),
-                new ExitAction(out)
+                new Delete(out),
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId())).isNull();
@@ -63,7 +70,7 @@ class StartUITest {
         );
         MemTracker tracker = new MemTracker();
         List<UserAction> actions = List.of(
-                new ExitAction(out)
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
@@ -82,7 +89,7 @@ class StartUITest {
         );
         MemTracker tracker = new MemTracker();
         List<UserAction> actions = List.of(
-                new ExitAction(out)
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
@@ -106,8 +113,8 @@ class StartUITest {
                 new String[] {"0", String.valueOf(one.getId()), replaceName, "1"}
         );
         List<UserAction> actions = List.of(
-                new ReplaceAction(out),
-                new ExitAction(out)
+                new Replace(out),
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
@@ -133,8 +140,8 @@ class StartUITest {
                 new String[] {"0", "1"}
         );
         List<UserAction> actions = List.of(
-                new FindAllAction(out),
-                new ExitAction(out)
+                new FindAll(out),
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
@@ -160,8 +167,8 @@ class StartUITest {
                 new String[] {"0", "test1", "1"}
         );
         List<UserAction> actions = List.of(
-                new FindByNameAction(out),
-                new ExitAction(out)
+                new FindByName(out),
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
@@ -187,8 +194,8 @@ class StartUITest {
                 new String[] {"0", String.valueOf(one.getId()), "1"}
         );
         List<UserAction> actions = List.of(
-                new FindByIdAction(out),
-                new ExitAction(out)
+                new FindById(out),
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
